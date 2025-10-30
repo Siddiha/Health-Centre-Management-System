@@ -1,63 +1,107 @@
-public abstract class StaffMember{
-    private String id;
+//we are using abstraction to control the access level of the class
+//if we want to define a abstract method inside a class the class must be abstracted class
+//compareto it gives three vaues 
+
+//comapre is here it compares with the other object  staffmember with another staff memebet
+public abstract class StaffMember implements Comparable<StaffMember> {
     private String name;
-    private String surname;
+    private String surName;
     private String dob;
-    private String contactNo;
+    private String phoneNo;
+    private String staffId;
 
-}
-
-public StaffMember(String id, String name, String surname, String dob, String contactNo) {
-        this.id = id;
+    public StaffMember(String name, String surName, String dob, String phoneNo, String staffId) {
         this.name = name;
-        this.surname = surname;
+        this.surName = surName;
         this.dob = dob;
-        this.contactNo = contactNo;
-}
+        this.phoneNo = phoneNo;
+        this.staffId = staffId;
 
-public String getID(){
-    return id;
+    }
 
-
-}
-
-public void setId(String id){
-    this.id = id;
-}
-
-
- public String getName() {
+    public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-public void setName(String name) {
-this.name = name;
-}
+    public String getSurName() {
+        return surName;
+    }
 
-public String getSurname() {
-        return surname;
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
+    public String getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
+    }
+
+    @Override
+    public String toString() {
+        return "Staff Member Name " + this.getName() + " Surname " + this.getSurName() + " DOB " + this.getDob()
+                + " Phone Number " + this.getPhoneNo() + " StaffID " + this.getStaffId();
     }
 
 
-public void setSurname(String surname) {
-this.surname = surname;
-}
+    // this is to copare with the objects 
+    public int compareTo(StaffMember o) {
 
-public String getDob() {
-return dob;
-}
- 
-public void setDob(String dob) {
-    this.dob = dob;
-}
+        return this.staffId.compareTo(o.staffId);
 
-public String getContactNo() {
-    return contactNo;
-}
-
-public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
     }
 
-public  abstract String getRole();
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
