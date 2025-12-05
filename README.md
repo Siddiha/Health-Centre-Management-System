@@ -1,4 +1,4 @@
-# 🏥 Health Centre System
+# 🏥 Health Centre Management System
 
 A comprehensive system for managing health centre operations, patient records, and appointments.
 
@@ -36,65 +36,7 @@ mvn clean install
 mvn spring-boot:run
 Open http://localhost:8080 to view it in your browser. (Port may vary depending on configuration)
 
-📦 Installation
-Prerequisites
-Java Development Kit (JDK) 17+
-Maven
-Git
-A database system (e.g., MySQL, PostgreSQL)
-From Source
-# Clone repository
-git clone https://github.com/ashfaq-ui/HealthCentreSystem.git
-cd HealthCentreSystem
 
-# Install dependencies (using Maven)
-mvn clean install
-
-# Configure the database connection (see Configuration section)
-
-# Run the application
-mvn spring-boot:run
-💻 Usage
-Basic Usage
-Assuming you are using Spring Boot:
-
-// Example: Accessing patient data through a service
-@Autowired
-private PatientService patientService;
-
-@GetMapping("/patients/{id}")
-public Patient getPatient(@PathVariable Long id) {
-    return patientService.getPatientById(id);
-}
-Advanced Examples
-// More complex usage scenarios such as generating reports or managing appointments.
-
-⚙️ Configuration
-Environment Variables
-Create an application.properties or application.yml file in the src/main/resources directory:
-
-# Database configuration
-spring.datasource.url=jdbc:mysql://localhost:3306/healthcentre
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-
-# Server configuration
-server.port=8080
-Configuration File
-Example using application.yml:
-
-spring:
-  application:
-    name: health-centre-system
-  profiles:
-    active: dev
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
 📁 Project Structure
 HealthCentreSystem/
 ├── src/
