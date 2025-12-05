@@ -1,187 +1,280 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class WestminsterHealthCenterManager implements HealthCenterManager {
-     private List<StaffMember> staffMemberslist;
-     private int staffLimit;
-     private  int noofDoctors;
-     private int noofReceptionsits;
+    private List<StaffMember> staffMembersList;
+    private int staffLimit;
+    private int noofDoctors;
+    private int noofReceptionists;
 
-     public WestminsterHealthCenterManager(int staffLimit, List<StaffMember> staffMembersList){
+    public WestminsterHealthCenterManager(int staffLimit) {
         this.staffLimit = staffLimit;
-        this.staffMemberslist = staffMembersList;
+        this.staffMembersList = new ArrayList<>();
         this.noofDoctors = 0;
-        this.noofReceptionsits = 0;
-     }
+        this.noofReceptionists = 0;
+    }
 
-    public boolean runMenu(){
-        System.out.println("=welcome to the the Westminster health center management==");
-        System.out.println("1. Add New staff member");
-        System.out.println("2. Remove Staff Member");
-        System.out.println("3.View All Staff");
-        System.out.println("4.Search staff by 10");
-        System.out.println("0.Exit ");
-
-        System.out.println("Enter your choice");
-        Scanner s = new Scanner(System.in);
-        int choice = s.nextInt();
+    @Override
+    public boolean runMenu() {
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
         
-        switch(choice){
-            case 1:
-            addStaffMember();
-
-            case 2:
-            removeStaffMember();
-            break;
-
-            case 3:
-            printStaffMember();
-            break;
+        while (!exit) {
+            System.out.println("\n=== Westminster Health Centre Management System ===");
+            System.out.println("1. Add New Staff Member");
+            System.out.println("2. Remove Staff Member");
+            System.out.println("3. View All Staff");
+            System.out.println("4. Search Staff by ID");
+            System.out.println("5. Sort Staff by Name");
+            System.out.println("6. Display Statistics");
+            System.out.println("7. Run GUI");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
             
-        return false;
+            int choice = getValidIntegerInput(scanner);
+            
+            switch(choice) {
+                case 1:
+                    addStaffMember();
+                    break;
+                case 2:
+                    removeStaffMember();
+                    break;
+                case 3:
+                    printStaffMember();
+                    break;
+                case 4:
+                    searchStaffById();
+                    break;
+                case 5:
+                    sortStaffByName();
+                    break;
+                case 6:
+                    displayStatistics();
+                    break;
+                case 7:
+                    runGUI();
+                    break;
+                case 0:
+                    exit = true;
+                    System.out.println("Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        }
+        return exit;
     }
 
-    public void addStaffMember(StaffMember staff){
-        staffMemberslist.add(staff);
+    // Input validation method
+    private int getValidIntegerInput(Scanner scanner) {
+        while (true) {
+            try {
+                int input = scanner.nextInt();
+                scanner.nextLine(); // Consume newline
+                return input;
+            } catch (InputMismatchException e) {
+                System.out.print("Invalid input! Please enter a number: ");
+                scanner.nextLine(); // Clear invalid input
+            }
+        }
     }
 
-    public void addStaffMember(){
-        if (staffMemberslist.size() >= staffLimit){
-            System.out.println("Maximum staff member limit reached: ");
+    @Override
+    public void addStaffMember() {
+        if (staffMembersList.size() >= staffLimit) {
+            System.out.println("Maximum staff limit reached: " + staffLimit);
             return;
         }
 
-        Scanner s1 = new Scanner(System.in);
-        System.out.println("Enter the Name: ");
-        String Name = s1.next();
-        System.out.println("Enter the surname: ");
-        String surname = s1.next();
-        System.out.println("Enter the Date of birth : ");
-        String dateofbirth = s1.next();
-        System.out.println("Enter the phone Number: ");
-        String phoneno = s1.next();
-        System.out.println("Enter the staffId");
-        String staffid = s1.next();
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        if (name.trim().isEmpty()) {
+            System.out.println("Name cannot be empty!");
+            return;
+        }
+        
+        System.out.print("Enter Surname: ");
+        String surname = scanner.nextLine();
+        if (surname.trim().isEmpty()) {
+            System.out.println("Surname cannot be empty!");
+            return;
+        }
+        
+        System.out.print("Enter Date of Birth (YYYY-MM-DD): ");
+        String dob = scanner.nextLine();
+        
+        System.out.print("Enter Phone Number: ");
+        String phoneNo = scanner.nextLine();
+        
+        System.out.print("Enter Staff ID: ");
+        String staffId = scanner.nextLine();
+        
+        // Check for duplicate ID
+        if (isDuplicateId(staffId)) {
+            System.out.println("Error: Staff ID '" + staffId + "' already exists!");
+            return;
+        }
 
-        System.out.println("Do you wantedf to add a dcotor or a Receptionist");
-
-        System.out.println("Type D for doctor, R for Receptionist: ");
-        String staffType = s1.next();
+        System.out.print("Enter staff type (D for Doctor, R for Receptionist): ");
+        String staffType = scanner.nextLine().toUpperCase();
 
         StaffMember member = null;
 
-        while (true){
-        switch(staffType){
-            case "D":
-            case "d":
-            System.out.println("Enter the Licence Number ");
-            String licenceNumber = s1.next();
-            System.out.println("Enter the specialization: ");
-            String specialsation = s1.next();
-            System.out.println("Enter the Number of Consultation: ");
-            int nnumberConsulat = s1.nextInt();
+        if (staffType.equals("D")) {
+            System.out.print("Enter Licence Number: ");
+            String licenceNumber = scanner.nextLine();
+            
+            System.out.print("Enter Specialization: ");
+            String specialization = scanner.nextLine();
+            
+            System.out.print("Enter Number of Consultations per Week: ");
+            int consultations = getValidIntegerInput(scanner);
 
-            member = new Doctor(Name, surname, dateofbirth, staffType, staffid, licenceNumber, specialsation, nnumberConsulat);
+            member = new Doctor(name, surname, dob, phoneNo, staffId, 
+                              licenceNumber, specialization, consultations);
             noofDoctors++;
-            break;
+            
+        } else if (staffType.equals("R")) {
+            System.out.print("Enter Desk Number: ");
+            int deskNumber = getValidIntegerInput(scanner);
+            
+            System.out.print("Enter Hours per Week: ");
+            int hoursPerWeek = getValidIntegerInput(scanner);
 
+            member = new Receptionist(name, surname, dob, phoneNo, staffId, 
+                                    deskNumber, hoursPerWeek);
+            noofReceptionists++;
+            
+        } else {
+            System.out.println("Invalid staff type!");
+            return;
+        }
 
+        staffMembersList.add(member);
+        System.out.println("Staff member added successfully!");
+        System.out.println("Total Doctors: " + noofDoctors + ", Total Receptionists: " + noofReceptionists);
+    }
 
-            case "R":
-            case "r":
-            System.out.println("Enter the Desk Number: ");
-            int deskNumber = s1.nextInt();
-            System.out.println("Enter the hoursPerWeek: ");
-            int hoursPerWeek = s1.nextInt();
+    private boolean isDuplicateId(String staffId) {
+        for (StaffMember member : staffMembersList) {
+            if (member.getStaffId().equalsIgnoreCase(staffId)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-            member = new Receptionist(Name, surname, phoneno, dateofbirth, staffid, deskNumber, hoursPerWeek);
-            noofReceptionsits++;
-            break;
+    @Override
+    public void printStaffMember() {
+        if (staffMembersList.isEmpty()) {
+            System.out.println("Staff list is empty");
+        } else {
+            System.out.println("\n=== List of Staff Members ===");
+            for (StaffMember member : staffMembersList) {
+                System.out.println(member);
+            }
+            System.out.println("Total: " + staffMembersList.size() + " staff members");
+        }
+    }
 
+    public void searchStaffById() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Staff ID to search: ");
+        String searchId = scanner.nextLine();
+        
+        boolean found = false;
+        for (StaffMember member : staffMembersList) {
+            if (member.getStaffId().equalsIgnoreCase(searchId)) {
+                System.out.println("Staff member found:");
+                System.out.println(member);
+                found = true;
+                break;
+            }
+        }
+        
+        if (!found) {
+            System.out.println("Staff member with ID '" + searchId + "' not found.");
+        }
+    }
 
-
-
-            default:
-            System.out.println("Invalid choice please try again");
+    public void sortStaffByName() {
+        if (staffMembersList.isEmpty()) {
+            System.out.println("Staff list is empty");
             return;
         }
         
-        staffMemberslist.add(member);
-        System.out.println("Staff memeber is successfully added: ");
-    }
-}
-
-      
-    public void printStaffMember(){
-
-        if (staffMemberslist.isEmpty()){
-            System.out.println("staff list is isEmpty");
-        }else{
-            System.out.println("== List of Staff Member== ");
-
-            for (staffMemberslist member: staffMembersList){
-                System.out.println(member);
-
-            }
-
-
-        }
-        //colections.sort mthod uses compareto method in the staff memeber
-        //if no comapreto method is available then th sorting will not work
-        // for the soerting to work , implement the comparable interface and overide the compareTo method 
-
-
-        // it will use nameComparator to sort cx earlier it uses compareto emthod to comapre it 
-        Collections.sort(staffMemberslist, new NameComparator());
-       
-                                          // if u wanted surnamecomparator then use the surname comparator
-    }
-
-
-    public void runGUI(){
-
-    }
-
-    public void removeStaffMember(){
-        System.out.println("Enter the staff id of the memeber you wish to remove :");
-        Scanner s2 = new Scanner(System.in);
-        String staffIDRemove = s2.next();
-
-
-boolean found = false;
-
-        for ( StaffMember member: staffMemberslist){
-
-            if (member.getStaffId().equals(staffIDRemove)){
-                found = true;
-                staffMemberslist.remove(member);
-                System.out.println("Staff member " + staffIDRemove + "successfully removed");
-
-                //it returns ture if not return false here 
-                if (member instanceof Doctor){
-                    noofDoctors--;
-
-
-
-                }else{
-                    noofReceptionsits--;
-
+        // Sort by surname, then by name
+        Collections.sort(staffMembersList, new Comparator<StaffMember>() {
+            @Override
+            public int compare(StaffMember s1, StaffMember s2) {
+                int surnameCompare = s1.getSurName().compareToIgnoreCase(s2.getSurName());
+                if (surnameCompare != 0) {
+                    return surnameCompare;
                 }
-                break;
-
-    
-
+                return s1.getName().compareToIgnoreCase(s2.getName());
             }
+        });
+        
+        System.out.println("\n=== Staff Sorted by Name ===");
+        printStaffMember();
+    }
 
+    public void displayStatistics() {
+        System.out.println("\n=== Health Centre Statistics ===");
+        System.out.println("Total Staff Members: " + staffMembersList.size());
+        System.out.println("Doctors: " + noofDoctors);
+        System.out.println("Receptionists: " + noofReceptionists);
+        
+        if (!staffMembersList.isEmpty()) {
+            double doctorPercentage = (double) noofDoctors / staffMembersList.size() * 100;
+            double receptionistPercentage = (double) noofReceptionists / staffMembersList.size() * 100;
+            System.out.printf("Doctor Percentage: %.1f%%\n", doctorPercentage);
+            System.out.printf("Receptionist Percentage: %.1f%%\n", receptionistPercentage);
+        }
+    }
+
+    @Override
+    public void removeStaffMember() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Staff ID to remove: ");
+        String staffIdToRemove = scanner.nextLine();
+
+        boolean found = false;
+        Iterator<StaffMember> iterator = staffMembersList.iterator();
+        
+        while (iterator.hasNext()) {
+            StaffMember member = iterator.next();
+            if (member.getStaffId().equals(staffIdToRemove)) {
+                iterator.remove();
+                found = true;
+
+                // Update counters
+                if (member instanceof Doctor) {
+                    noofDoctors--;
+                } else if (member instanceof Receptionist) {
+                    noofReceptionists--;
+                }
+
+                System.out.println("Staff member " + staffIdToRemove + " successfully removed");
+                break;
+            }
         }
 
-        //if not found then it retrn nothing in here 
-        if (!found){
-            System.out.println("Staff member" + staffIDRemove + "is not found in the list ");
-
+        if (!found) {
+            System.out.println("Staff member " + staffIdToRemove + " not found.");
         }
+    }
 
+
+    @Override
+    public void runGUI() {
+        StaffManagementGUI gui = new StaffManagementGUI(new ArrayList<>(staffMembersList));
+        gui.setVisible(true);
+    }
+
+    public List<StaffMember> getStaffMembersList() {
+        return staffMembersList;
     }
 }

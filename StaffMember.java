@@ -61,8 +61,8 @@ public abstract class StaffMember implements Comparable<StaffMember> {
 
     @Override
     public String toString() {
-        return "Staff Member Name " + this.getName() + " Surname " + this.getSurName() + " DOB " + this.getDob()
-                + " Phone Number " + this.getPhoneNo() + " StaffID " + this.getStaffId();
+        return "Staff Member Name " + getName() + " Surname " + getSurName() + " DOB " + getDob()
+                + " Phone Number " + getPhoneNo() + " StaffID " + getStaffId();
     }
 
 
