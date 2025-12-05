@@ -1,13 +1,14 @@
-//the difference between interface and abstract classes are abstract classes cannot be instantiated
-// (we can create object for the class.)
+import java.io.IOException;
+
 public interface HealthCenterManager {
     boolean runMenu();
-    void addStaffMemberList();
+    void addStaffMember();
+    void removeStaffMember();
     void printStaffMember();
-    void runGUI(); // all the methods in this interface are abstract methods
-    // by default all the methods are public.
-
-    //abstract classes we can create create constructors but interfaces we cannot create constructors
-
+    void searchStaffById();
+    void sortStaffByName();
+    void displayStatistics();
+    void runGUI();
+    void saveToFile() throws IOException;
+    void loadFromFile() throws IOException;
 }
-

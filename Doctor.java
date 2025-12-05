@@ -3,9 +3,9 @@ public class Doctor extends StaffMember {
     private String specialization;
     private int numberOfConsultationPerWeek;
 
-    public Doctor(String name, String surName, String dob, String phoneNo, String staffId, String licenceNumber, String specialization, int numberOfConsultationPerWeek){
-        super(name, surName, dob, phoneNo, staffId);// call to the super class constructor
-        // to initialize the attributes of the super class(staffmember)
+    public Doctor(String name, String surName, String dob, String phoneNo, String staffId, 
+                  String licenceNumber, String specialization, int numberOfConsultationPerWeek) {
+        super(name, surName, dob, phoneNo, staffId);
         this.licenceNumber = licenceNumber;
         this.specialization = specialization;
         this.numberOfConsultationPerWeek = numberOfConsultationPerWeek;
@@ -36,28 +36,13 @@ public class Doctor extends StaffMember {
     }
 
     @Override
-    public String toString(){
-        return super.toString()+" Licence Number "+licenceNumber+" Specialization "+specialization+" Number of Consultation per Week "+numberOfConsultationPerWeek ;
+    public String getRole() {
+        return "Doctor";
     }
 
-
-
+    @Override
+    public String toString() {
+        return super.toString() + " Licence Number " + licenceNumber + " Specialization " + 
+               specialization + " Number of Consultation per Week " + numberOfConsultationPerWeek;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
