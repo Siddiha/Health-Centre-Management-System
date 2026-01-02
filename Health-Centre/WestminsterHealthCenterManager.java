@@ -9,6 +9,7 @@ public class WestminsterHealthCenterManager implements HealthCenterManager {
      private  int noofDoctors;
      private int noofReceptionsits;
 
+
      public WestminsterHealthCenterManager(int staffLimit, List<StaffMember> staffMembersList){
         this.staffLimit = staffLimit;
         this.staffMemberslist = staffMembersList;
@@ -40,8 +41,9 @@ public class WestminsterHealthCenterManager implements HealthCenterManager {
             printStaffMember();
             break;
             
-        return false;
     }
+
+    return false;
 
     public void addStaffMember(StaffMember staff){
         staffMemberslist.add(staff);
@@ -112,8 +114,6 @@ public class WestminsterHealthCenterManager implements HealthCenterManager {
         System.out.println("Staff memeber is successfully added: ");
     }
 }
-
-      
     public void printStaffMember(){
 
         if (staffMemberslist.isEmpty()){
@@ -135,7 +135,6 @@ public class WestminsterHealthCenterManager implements HealthCenterManager {
 
         // it will use nameComparator to sort cx earlier it uses compareto emthod to comapre it 
         Collections.sort(staffMemberslist, new NameComparator());
-       
                                           // if u wanted surnamecomparator then use the surname comparator
     }
 
@@ -162,17 +161,11 @@ boolean found = false;
                 //it returns ture if not return false here 
                 if (member instanceof Doctor){
                     noofDoctors--;
-
-
-
                 }else{
                     noofReceptionsits--;
 
                 }
                 break;
-
-    
-
             }
 
         }

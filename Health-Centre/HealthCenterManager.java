@@ -7,4 +7,6 @@ public interface HealthCenterManager {
     void runGUI(); // all the methods in this interface are abstract methods
     // by default all the methods are public.
 
+    //abstract classes we can create create constructors but interfaces we cannot create constructors
+
 }
