@@ -37,26 +37,3 @@ mvn spring-boot:run
 Open http://localhost:8080 to view it in your browser. (Port may vary depending on configuration)
 
 
-📁 Project Structure
-HealthCentreSystem/
-├── src/
-│   ├── main/
-│   │   ├── java/
-│   │   │   └── com/
-│   │   │       └── healthcentre/
-│   │   │           ├── controller/       # REST Controllers
-│   │   │           ├── service/          # Business logic services
-│   │   │           ├── model/            # Data models (Entities)
-│   │   │           ├── repository/       # Data access repositories
-│   │   │           └── HealthCentreApplication.java # Main application class
-│   │   └── resources/
-│   │       ├── application.properties  # Configuration properties
-│   │       └── static/              # Static assets (HTML, CSS, JS)
-│   └── test/
-│       └── java/
-│           └── com/
-│               └── healthcentre/
-│                   └── HealthCentreApplicationTests.java # Test classes
-├── pom.xml                     # Maven project configuration
-├── README.md                   # Project documentation
-└── LICENSE                     # License file
