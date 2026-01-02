@@ -1,36 +1,33 @@
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        StaffMember member = new Doctor("johny","john","12/12/2012","0123456789",
-                "054321","202012","cardiologist",10);
-        member = new Receptionist("kamal","vimal","12/13/2013",
-                "0987654321","012345",14,9);
-        StaffMember[] array = new StaffMember[5];
-
-
-        //fixed in size
-        //there is no underlying operation.(there is no method to add,remove item etc.)
-        // it is dynamic in size as it can grow and shrink better alternatives is linkedlists 
-        //provides underlying operations 
-        //list maintains the insertion order (dont want duplicates)
-        //Queue first in, first out FiFo or LIFO
-        //set doesnt allow dulplicates and doesnt matina orders 
-        //map is dictionary
-        List<StaffMember> list = new ArrayList<StaffMember>();
-
-
-
-        //Dynamic in size
-        //there are underlying operation to support adding and removing items.
-        list.add(member);
-        list.remove(0);
-
-
-
+        System.out.println("=========================================");
+        System.out.println("  WESTMINSTER HEALTH CENTRE MANAGEMENT  ");
+        System.out.println("              SYSTEM v2.0               ");
+        System.out.println("=========================================");
+        
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter maximum staff capacity: ");
+        int capacity = 100; // Default
+        
+        try {
+            capacity = Integer.parseInt(scanner.nextLine());
+            if (capacity <= 0) {
+                System.out.println("Invalid capacity. Using default (100).");
+                capacity = 100;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Using default capacity (100).");
+        }
+        
+        WestminsterHealthCenterManager manager = new WestminsterHealthCenterManager(capacity);
+        
+        System.out.println("\nSystem initialized with capacity: " + capacity);
+        System.out.println("Type 'help' for commands or '0' to exit.");
+        
+        manager.runMenu();
+        
+        scanner.close();
     }
-
-
 }

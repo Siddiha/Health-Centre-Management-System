@@ -2,7 +2,8 @@ public class Receptionist extends StaffMember {
     private int deskNumber;
     private int hoursPerWeek;
 
-    public Receptionist(String name, String surName, String dob, String phoneNo, String staffId, int deskNumber, int hoursPerWeek) {
+    public Receptionist(String name, String surName, String dob, String phoneNo, String staffId,
+                        int deskNumber, int hoursPerWeek) {
         super(name, surName, dob, phoneNo, staffId);
         this.deskNumber = deskNumber;
         this.hoursPerWeek = hoursPerWeek;
@@ -25,8 +26,12 @@ public class Receptionist extends StaffMember {
     }
 
     @Override
-    public String toString(){
-        return super.toString()+" Desk Number "+deskNumber+" Hours per Week "+ hoursPerWeek;
+    public String getRole() {
+        return "Receptionist";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " Desk Number " + deskNumber + " Hours per Week " + hoursPerWeek;
     }
 }
-

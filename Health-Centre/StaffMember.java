@@ -1,8 +1,3 @@
-//we are using abstraction to control the access level of the class
-//if we want to define a abstract method inside a class the class must be abstracted class
-//compareto it gives three vaues 
-
-//comapre is here it compares with the other object  staffmember with another staff memebet
 public abstract class StaffMember implements Comparable<StaffMember> {
     private String name;
     private String surName;
@@ -16,7 +11,6 @@ public abstract class StaffMember implements Comparable<StaffMember> {
         this.dob = dob;
         this.phoneNo = phoneNo;
         this.staffId = staffId;
-
     }
 
     public String getName() {
@@ -59,49 +53,17 @@ public abstract class StaffMember implements Comparable<StaffMember> {
         this.staffId = staffId;
     }
 
+    // Abstract method that must be implemented by subclasses
+    public abstract String getRole();
+
     @Override
     public String toString() {
-        return "Staff Member Name " + this.getName() + " Surname " + this.getSurName() + " DOB " + this.getDob()
-                + " Phone Number " + this.getPhoneNo() + " StaffID " + this.getStaffId();
+        return "Staff Member Name " + getName() + " Surname " + getSurName() + " DOB " + getDob()
+                + " Phone Number " + getPhoneNo() + " StaffID " + getStaffId();
     }
 
-
-    // this is to copare with the objects 
+    @Override
     public int compareTo(StaffMember o) {
-
         return this.staffId.compareTo(o.staffId);
-
     }
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
