@@ -1,4 +1,4 @@
-# 🏥 Health Centre Management System
+# 🏥 Health Centre Management System and Ticket Management
 
 A comprehensive system for managing health centre operations, patient records, and appointments.
 
